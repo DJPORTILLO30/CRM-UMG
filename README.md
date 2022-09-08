@@ -19,7 +19,9 @@ contar con las siguientes dependecias:
 - Jest
 - SuperTest
 
-Para ello ejecute los siguientes comandos en la termianl
+Asi como promiamente dicho tener instaldo Node.js (https://nodejs.org/es/download/)
+
+Para ello ejecute los siguientes comandos en la terminal
 
 ```
 $npm i nodemon -S
