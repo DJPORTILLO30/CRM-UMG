@@ -36,7 +36,7 @@ $npm i swagger-jsdoc -S
 $npm i swagger-ui-express -S
 $npm i jest supertest -D
 ```
-Para ejecutar la aplicacion debemos ejecutar el comando ``` $npm rundev```
+Para ejecutar la aplicacion debemos ejecutar el comando ``` $npm run dev```
 
 ### Git
 Ya que el siguiente proyecto esta siendo realizado por varios equipos trabajaremos con diferentes ramas para cada caracteristica. 
