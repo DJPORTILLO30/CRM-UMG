@@ -21,20 +21,10 @@ contar con las siguientes dependecias:
 
 Así como propiamente dicho tener instalado Node.js (https://nodejs.org/es/download/)
 
-Para ello ejecute los siguientes comandos en la terminal
+Dado que el proyecto ya cuenta con un archivo package.json, solo deben de ejecutar el siguiente comando en la terminal para que se instalen automáticamente todas las dependencias necesarias:
 
 ```
-$npm i nodemon -S
-$npm i express --save
-$npm i express-validator -S
-$npm i bcryptjs -S
-$npm i mysql2 -S
-$npm i cors multer dotenv --save
-$npm i sequelize -S
-$npm i jsonwebtoken -S
-$npm i swagger-jsdoc -S 
-$npm i swagger-ui-express -S
-$npm i jest supertest -D
+$npm i
 ```
 Para ejecutar la aplicacion debemos ejecutar el comando ``` $npm run dev```
 
