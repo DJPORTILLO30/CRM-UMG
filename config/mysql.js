@@ -23,3 +23,7 @@ const dbConnectMySQL = async () => {
         console.log("MYSQL ERROR" , e)
     }
 };
+
+module.exports = {
+    dbConnectMySQL
+}
