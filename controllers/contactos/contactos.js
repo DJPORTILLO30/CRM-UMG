@@ -28,3 +28,5 @@ const deleteItem = (req, res) => {
     res.send({mensaje: "contactos"});
 
 }
+
+module.exports ={getItems, getItem, createItem, updateItem, deleteItem}
