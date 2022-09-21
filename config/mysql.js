@@ -1,4 +1,6 @@
 const {Sequelize} = require("sequelize");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const database = process.env.MYSQL_DATABASE;
 const username = process.env.MYSQL_USER;
