@@ -5,7 +5,7 @@ const swaggerUI = require("swagger-ui-express")
 const openApiConfiguration = require("./docs/swagger")
 const {dbConnectMySQL} = require("./config/mysql")
 const app = express()
-const router = require("./routes/usuarios/usuarios.js")
+const router = require("./routes/usuarios/usuarios")
 const ENGINE_DB = process.env.ENGINE_DB;
 
 

@@ -1,5 +1,5 @@
 const {matchedData} = require("express-validator");
-const {usersModel} = require ("../usuarios");
+const {usersModel} = require ("../../models/usuarios/usuarios");
 
 /**
  * Este es el controlador encargado de registrar un usuario
@@ -7,23 +7,7 @@ const {usersModel} = require ("../usuarios");
  * @param {*} res 
  */
 const registerUserCtrl = async (req, res) =>{
-    try{
-        req = matchedData(req);
-        const password = await encrypt(req.password);
-        const body = {...req, password};
-        const dataUser = await usersModel.create(body);
-        dataUser.set("password", undefined, {strict:false});
-
-        const data = {
-            token: await tokenSign(dataUser),
-            user: dataUser
-        };
-
-        res.status(201)
-        res.send({data})
-    }catch (e){
-        console.log(e)
-    }
+    res.send({data: "Hello World!"})
 };
 
 /**
