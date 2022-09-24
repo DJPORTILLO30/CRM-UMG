@@ -1,23 +1,23 @@
-const { mostrarRoles, insertarRol, modificarRol, eliminarRol, mostrarRol } = require("../../controllers/roles/roles");
+const { getRoles, insertRol, updateRol, deleteRol, getRol } = require("../../controllers/roles/roles");
 
 
 /* ruta para mostrar la lista de roles
  */
-router.get("/", mostrarRoles);
+router.get("/", getRoles);
 
 /* ruta para mostrar el detalle de un rol
  */
-router.get("/:id", mostrarRol);
+router.get("/:id", getRol);
 
 /* ruta para insertar un rol
  */
-router.post("/", insertarRol);
+router.post("/", insertRol);
 
 /* ruta para modificar un rol
  */
-router.put("/:id", modificarRol);
+router.put("/:id", updateRol);
 
 /**
  * ruta para eliminar un rol
  */
- router.delete("/:id", eliminarRol);
+ router.delete("/:id", deleteRol);
