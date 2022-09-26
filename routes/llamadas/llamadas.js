@@ -1,25 +1,46 @@
-const { Router } = require("express");
 const express = require("express");
 const router= express.Router();
 const {
 
-     getItems, 
-     getItem,
-     createItem, 
-     updateItem, 
-     deleteItem
+     getCalls, 
+     getCall,
+     createCall,
+     updateCall, 
+     deleteCall
       
 } = require("../../controllers/llamadas/llamadas");
 
-router.get("/", getItems);
+/**
+ * Encontraras las Rutas.
+ */
+/**
+ * Muestra la lista de llamadas
+ */
+router.get("/", getCalls);
 
-router.get("/:id", getItem);
+/**
+ * Muestra el detalle de una llamada
+ */
 
-router.post("/:id", createItem);
+router.get("/:id", getCall);
 
-router.put("/:id", updateItem);
+/**
+ * Inserta una llamada
+ */
 
-router.delete("/", deleteItem);
+router.post("/:id", createCall);
+
+
+/**
+ * Modifica una llamada
+ */
+router.put("/:id", updateCall);
+
+
+/**
+ *  Elimina una llamada 
+ */
+router.delete("/", deleteCall);
 
 
 module.exports = router;

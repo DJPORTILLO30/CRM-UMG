@@ -1,36 +1,54 @@
-const getItems = (req, res) => 
+/**
+ * Encontraras los controladores 
+ */
+/**
+ * Muestra la lista de Llamadas
+ */
+const getCalls = (req, res) => 
 {
 
     res.send({mensaje: "llamadas"});
 
 }
 
-const getItem = (req, res) =>
+/**
+ *Muestra el detalle de una Llamada
+ */
+const getCall = (req, res) =>
  {
 
     res.send({mensaje: "llamadas"});
 
 }
 
-const createItem = (req, res) =>
+/**
+ * Inserta una llamada 
+ */
+const createCall = (req, res) =>
  {
 
     res.send({mensaje: "llamadas"});
 
 }
 
-const updateItem = (req, res) =>
+/**
+ * Modifica una Llamada
+ */
+const updateCall = (req, res) =>
  {
 
     res.send({mensaje: "llamadas"});
 
 }
 
-const deleteItem = (req, res) => 
+/**
+ * Elimina una Llamada
+ */
+const deleteCall= (req, res) => 
 {
 
     res.send({mensaje: "llamadas"});
 
 }
 
-module.exports = {getItems, getItem, createItem, updateItem, deleteItem}
+module.exports = {getCalls, getCall, createCall, updateCall, deleteCall}
