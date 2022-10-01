@@ -14,8 +14,14 @@ const User = sequelize.define(
         phone: {
             type: DataTypes.NUMBER
         },
+        company:{
+            type:DataTypes.STRING
+        },
         role:{
-            type: DataTypes.ENUM(["User", "Admin"]),
+            type: DataTypes.STRING
+        },
+        estatus:{
+            type: DataTypes.STRING
         },
         password: {
             type: DataTypes.STRING
