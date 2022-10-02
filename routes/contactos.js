@@ -1,14 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const {getItems, getItem, createItem, updateItem, deleteItem} = require("../controllers/contactos")
+const {getContacs, getContac, createContac, updateContac, deleteContac} = require("../controllers/contacs")
 
-router.get("/", getItems);
-router.get("/", getItem);
-router.post("/", createItem);
-router.put("/", updateItem);
-router.delete("/", deleteItem);
+//Ruta para listar contactos
+router.get("/", getContacs);
+//Ruta para listar contacto
+router.get("/", getContac);
+//Ruta para crear contactos
+router.post("/", createContac);
+//Ruta para actualizar contactos
+router.put("/", updateContac);
+//Ruta para eliminar contactos
+router.delete("/", deleteContac);
 
 module.exports = router
-
 
 
