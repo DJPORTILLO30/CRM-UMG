@@ -1,32 +1,38 @@
 
-const getItems = (req, res) => {
+//Obtener lista de contactos
+const getContacts = (req, res) => {
 
-    res.send({mensaje: "contactos"});
-
-}
-
-const getItem = (req, res) => {
-
-    res.send({mensaje: "contactos"});
+    res.send({mensaje: "Contact"});
 
 }
 
-const createItem = (req, res) => {
+//Obtener un contacto
+const getContact = (req, res) => {
 
-    res.send({mensaje: "contactos"});
-
-}
-
-const updateItem = (req, res) => {
-
-    res.send({mensaje: "contactos"});
+    res.send({mensaje: "Contact"});
 
 }
 
-const deleteItem = (req, res) => {
+//Crear un contacto
+const createContact = (req, res) => {
 
-    res.send({mensaje: "contactos"});
+    res.send({mensaje: "Contact"});
 
 }
 
-module.exports ={getItems, getItem, createItem, updateItem, deleteItem}
+//Actualizar un contacto
+const updateContact = (req, res) => {
+
+    res.send({mensaje: "Contact"});
+
+}
+
+//Eliminar un contacto
+const deleteContact = (req, res) => {
+
+    res.send({mensaje: "Contact"});
+
+}
+
+//Exportar funciones
+module.exports ={getContacts, getContact, createContact, updateContact, deleteContact}
