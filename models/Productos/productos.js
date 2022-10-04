@@ -1,12 +1,37 @@
 const { sequelize } = require("../../config/mysql")
 const { DataTypes } = require("sequelize");
 
-const Producto = sequelize.define(
-    "productos",
+ //Creacion del modelo productos
+
+const Product = sequelize.define(
+    "products",
     {
 
-    }
+    name: {
+
+            type: DataTypes.STRING,
+            allowNull: false
+
+    },
+
+    description: {
+            type: DataTypes.STRING
+    },
+
+    Category: {
+        type: DataTypes.STRING
+    },
+
+    Price: {
+        type: DataTypes.INTEGER
+    },
+
+    Feature: {
+        type: DataTypes.STRING
+    },
+
+    },
 );
-//Producto.find = Producto.findAll;
-//Producto.findById = Producto.findByPk;
-module.exports = Producto;
+
+
+module.exports = Product;

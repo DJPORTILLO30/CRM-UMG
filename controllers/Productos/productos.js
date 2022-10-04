@@ -1,76 +1,70 @@
+const {ProductsModel} = require("../../models/Productos/productos");
+const {matchedData} = require("express-validator");
+const { body } = require("express-validator");
 
 
-/**
- * obtener una lista
- * @param {*} req 
- * @param {*} res 
+/* este es el controlador encargado de mostrar la lista de productos
  */
+const getProducts = async (req, res) =>{
+    try{
+        const products = await ProductsModel.findAllaData({});
+        res.send({products});
+    }catch(e){
+         //handleHttpError(res,"ERROR_GET_Products")
+    };
+};
 
- const getItems = (req, res) => {
+/* este es el controlador encargado de mostrar el detalle de un producto
+ */
+ const getProduct = async (req, res) =>{
+    try{
+        req = matchedData(req);
+        const {id} = req;
+        const products = await ProductsModel.finOneData(id)
+        res.send({products});
+    }catch(e){
+         //handleHttpError(res,"ERROR_GET_Product")
+    };
+};
 
-    const data = ["hola mundo"]
+/* este es el controlador encargado de insertar un producto
+ */
+ const insertProducts = async (req, res) =>{
+   try{
+    const body = matchedData(req);
+    const products = await ProductsModel.create(body);
+    res.send({products});
+   }catch(e){
+     //handleHttpError(res,'ERROR_CREATE_Products') 
+   };
+};
 
-    res.send({data})
-
+/* este es el controlador encargado de modificar/actualizar un producto
+ */
+ const updateProducts = async (req, res) =>{
+    try{
+        const {id, ...body} = matchedData(req);
+        const products = await ProductsModel.findOneAndUpdate(id,body);
+        res.send({products});
+    }catch(e){
+        //handleHttpError(res,'ERROR_UPDATE_Products')
+    };
 };
 
 /**
- * ---
- * @param {*} req 
- * @param {*} res 
+ * este es el controlador encargado de eliminar un producto
  */
+ const deleteProducts = async (req, res) =>{
+    try{
+        req = matchedData(req)
+        const{id} = req;
+        const deleteResponse = await ProductsModel.delete({id});
+        const products = {deleted: deleteResponse.matchedCount};
+        res.send({products});
 
-const getItem = (req, res) => {
-
-    const data = ["hola mundo"]
-
-    res.send({data})
-
+    }catch(e){
+        //handleHttpError(res,'ERROR_DELETE_Products')  
+    };
 };
 
-/**
- * --
- * @param {*} req 
- * @param {*} res 
- */
-
-const createItem = (req, res) => {
-
-    const data = ["hola mundo"]
-
-    res.send({data})
-
-};
-
-/**
- * --
- * @param {*} req 
- * @param {*} res 
- */
-
-const updateItem = (req, res) => {
-
-    const data = ["hola mundo"]
-
-    res.send({data})
-
-};
-
-/**
- * --
- * @param {*} req 
- * @param {*} res 
- */
-
-const deleteItem = (req, res) => {
-
-    const data = ["hola mundo"]
-
-    res.send({data})
-
-};
-
-
-module.exports = {getItems, getItem, createItem,updateItem,deleteItem};
-
-
+module.exports={getProducts, getProduct, insertProducts, updateProducts,deleteProducts}
