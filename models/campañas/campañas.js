@@ -35,4 +35,4 @@ const Campaign = sequelize.define(
 Campaign.find = Campaign.findAll;
 Campaign.findById = Campaign.findByPk;
 
-module.exports = Contact;
+module.exports = Campaign;
