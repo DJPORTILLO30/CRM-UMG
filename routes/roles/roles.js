@@ -17,7 +17,9 @@ router.post("/", insertRol);
  */
 router.put("/:id", updateRol);
 
-/**
- * ruta para eliminar un rol
+/*
+  ruta para eliminar un rol
  */
  router.delete("/:id", deleteRol);
+
+ module.exports={getRoles, getRol, insertRol, updateRol,deleteRol}
