@@ -29,8 +29,10 @@ const Product = sequelize.define(
     Feature: {
         type: DataTypes.STRING
     },
-
-    },
+},
+{
+    timestamps:true,
+}
 );
 
 
