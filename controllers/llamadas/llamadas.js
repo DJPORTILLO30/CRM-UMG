@@ -1,7 +1,7 @@
 /**
  * Encontraras los controladores 
  */
-const {CallsModel}= require ("../../models/llamadas/llamadas")
+const {callsModel}= require ("../../models/llamadas/llamadas")
 const {matchedData} = require("express-validator")
 
 /**
@@ -9,7 +9,7 @@ const {matchedData} = require("express-validator")
  */
 const getCalls = async(req, res) => {
 try{
-    const call = await CallsModel.findAllData({});
+    const call = await callsModel.findAllData({});
     res.send({call});
 
 } catch(e)
@@ -25,7 +25,7 @@ const getCall = async(req, res) =>{
  try{
     req = matchedData(req);
     const {id} = req;
-    const call = await CallsModel.finOneData(id)
+    const call = await callsModel.finOneData(id)
     res.send({call});
 
 } catch(e) 
@@ -41,7 +41,7 @@ const getCall = async(req, res) =>{
 const createCall = async(req, res) =>{
  try{
     const body = matchedData(req);
-    const call = await CallsModel.create(body);
+    const call = await callsModel.create(body);
     res.send({call});
 
 }catch(e)
@@ -56,7 +56,7 @@ const createCall = async(req, res) =>{
 const updateCall = async(req, res) =>{
  try {
     const {id, ...body} = matchedData(req);
-    const call = await CallsModel.findOneAndUpdate(id, body);
+    const call = await callsModel.findOneAndUpdate(id, body);
     res.send({call});
 
 }catch (e)
@@ -73,7 +73,7 @@ const deleteCall= async (req, res) => {
 try{
     req = matchedData(req)
     const{id} = req;
-    const deleteResponse = await CallsModel.delete({id});
+    const deleteResponse = await callsModel.delete({id});
     const call = {deleted: deleteResponse.matchedCount};
     res.send({call});
 
