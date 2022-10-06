@@ -1,11 +1,11 @@
-const {BusisModel}= require ("../../models/negocio/negocio")
+const {busisModel}= require ("../../models/negocio/negocio")
 const {matchedData} = require("express-validator")
 
 
 /*Controla la lista de negocios*/
 const getBusis = async(req, res) => {
 try{
-    const busi = await BusisModel.findAllData({});
+    const busi = await busisModel.findAllData({});
     res.send({busi});
 
 } catch(e)
@@ -18,7 +18,7 @@ const getBusi = async(req, res) =>{
     try{
        req = matchedData(req);
        const {id} = req;
-       const busi = await BusisModel.finOneData(id)
+       const busi = await busisModel.finOneData(id)
        res.send({busi});
    
    } catch(e) 
@@ -30,7 +30,7 @@ const getBusi = async(req, res) =>{
 const createBusi = async(req, res) =>{
     try{
        const body = matchedData(req);
-       const busi = await BusisModel.create(body);
+       const busi = await busisModel.create(body);
        res.send({busi});
    
    }catch(e)
@@ -42,7 +42,7 @@ const createBusi = async(req, res) =>{
 const updateBusi = async(req, res) =>{
     try {
        const {id, ...body} = matchedData(req);
-       const busi = await BusisModel.findOneAndUpdate(id, body);
+       const busi = await busisModel.findOneAndUpdate(id, body);
        res.send({busi});
    
    }catch (e)
@@ -55,7 +55,7 @@ const deleteBusi = async(req, res) => {
     try{
         req = matchedData(req)
         const{id} = req;
-        const deleteResponse = await BusisModel.delete({id});
+        const deleteResponse = await busisModel.delete({id});
         const busi = {deleted: deleteResponse.matchedCount};
         res.send({busi});
     
