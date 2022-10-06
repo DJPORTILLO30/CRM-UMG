@@ -1,4 +1,4 @@
-const {ProductsModel} = require("../../models/Productos/productos");
+const {productsModel} = require("../../models/Productos/productos");
 const {matchedData} = require("express-validator");
 const { body } = require("express-validator");
 
@@ -7,7 +7,7 @@ const { body } = require("express-validator");
  */
 const getProducts = async (req, res) =>{
     try{
-        const products = await ProductsModel.findAllaData({});
+        const products = await productsModel.findAllaData({});
         res.send({products});
     }catch(e){
          //handleHttpError(res,"ERROR_GET_Products")
@@ -20,7 +20,7 @@ const getProducts = async (req, res) =>{
     try{
         req = matchedData(req);
         const {id} = req;
-        const products = await ProductsModel.finOneData(id)
+        const products = await productsModel.finOneData(id)
         res.send({products});
     }catch(e){
          //handleHttpError(res,"ERROR_GET_Product")
@@ -32,7 +32,7 @@ const getProducts = async (req, res) =>{
  const insertProducts = async (req, res) =>{
    try{
     const body = matchedData(req);
-    const products = await ProductsModel.create(body);
+    const products = await productsModel.create(body);
     res.send({products});
    }catch(e){
      //handleHttpError(res,'ERROR_CREATE_Products') 
@@ -44,7 +44,7 @@ const getProducts = async (req, res) =>{
  const updateProducts = async (req, res) =>{
     try{
         const {id, ...body} = matchedData(req);
-        const products = await ProductsModel.findOneAndUpdate(id,body);
+        const products = await productsModel.findOneAndUpdate(id,body);
         res.send({products});
     }catch(e){
         //handleHttpError(res,'ERROR_UPDATE_Products')
@@ -58,7 +58,7 @@ const getProducts = async (req, res) =>{
     try{
         req = matchedData(req)
         const{id} = req;
-        const deleteResponse = await ProductsModel.delete({id});
+        const deleteResponse = await productsModel.delete({id});
         const products = {deleted: deleteResponse.matchedCount};
         res.send({products});
 
