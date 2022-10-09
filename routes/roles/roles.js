@@ -1,3 +1,5 @@
+const express = require("express");
+const router = express.Router();
 const { getRoles, insertRol, updateRol, deleteRol, getRol } = require("../../controllers/roles/roles");
 
 
@@ -22,4 +24,4 @@ router.put("/:id", updateRol);
  */
  router.delete("/:id", deleteRol);
 
- module.exports={getRoles, getRol, insertRol, updateRol,deleteRol}
+ module.exports = router;
