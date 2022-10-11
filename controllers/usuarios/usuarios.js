@@ -1,5 +1,8 @@
 const { matchedData } = require("express-validator");
 const {usersModel} = require ("../../models/usuarios/usuarios");
+const {encrypt, compare} = require("../../utils/handlers/handlePassword");
+const {tokenSign} = require("../../utils/handlers/handleJWT");
+const { handleHttpError } = require("../../utils/handlers/handleError");
 
 /**
  * este es el controlador que muestra la lista de usuarios
@@ -11,7 +14,7 @@ const getUsers = async (req, res) =>{
         const data = await usersModel.find({});
         res.send({data})
     }catch(e){
-        //handleHttpError(res,"ERROR_GET_USERS")
+        handleHttpError(res,"ERROR_GET_USERS")
     }
 };
 
@@ -23,13 +26,15 @@ const getUsers = async (req, res) =>{
  */
 const getUser = async (req, res) => {
     try{
-        const {id} = matchedData(req)
+        console.log(req)               
+        const {id} = matchedData(req.body)
         const data = await usersModel.findById(id);
         res.send({data})
         console.log("estoy aquí", id)
-    }catch(e){
+    }catch(e){                                                  
+        
         console.log(e)
-        //handleHttpError(res,"ERROR_GET_USER)
+        handleHttpError(res,"ERROR_GET_USER")
     }
 };
 
@@ -44,17 +49,20 @@ const registerUser = async (req, res) =>{
         const password = await encrypt(req.password);
         const body = { ...req, password };
         const dataUser = await usersModel.create(body);
-        dataUser.set("password", undefined, { strict: false });
+        dataUser.set("password", { strict: false });
+    
         const data = {
             token: await tokenSign(dataUser),
             user: dataUser
         };
 
+
         res.status(201)
-        res.send({data})
-    }catch (e){
-        //handleHttpError(res, "ERROR_REGISTER_USER")
-    }
+        res.send({ data })
+      }catch(e){
+        console.log(e)
+        handleHttpError(res, "ERROR_REGISTER_USER")
+      }
 };
 
 /**
@@ -68,7 +76,7 @@ const updateUser = async (req, res) =>{
         const data = await usersModel.findOneAndUpdate(id, body);
         res.send({data});
     }catch(e){
-        //handleHttpError(res,'ERROR_UPDATE_USER')
+        handleHttpError(res,'ERROR_UPDATE_USER')
     }
 };
 
@@ -81,11 +89,12 @@ const deleteUser = async (req, res) => {
     try{
         req = matchedData(req);
         const {id} = req;
-        const deleteResponse = await usersModel.findByIdAndDelete(id);
+        const deleteResponse = await usersModel.delete(id);
         const data = {deleted: deleteResponse.matchCount};
         res.send({data});
     }catch(e){
-        //handleHttpError(res,'ERROR_DELETE_USER')
+        console.log(e)
+        handleHttpError(res,'ERROR_DELETE_USER')
     }
 };
 
@@ -100,7 +109,7 @@ const loginUser = async (req, res) => {
         const user = await usersModel.findOne({email:req.email});
 
         if(!user){
-            //handleHttpError(res, "USER_NOT_EXIST", 404);
+            handleHttpError(res, "USER_NOT_EXIST", 404);
             return
         };
         
@@ -108,7 +117,7 @@ const loginUser = async (req, res) => {
         const check = await compare(req.password, hashPassword);
 
         if(!check){
-            //handleHttpError(res, "PASSWORD_INVALID", 401);
+            handleHttpError(res, "PASSWORD_INVALID", 401);
             return
         };
 
@@ -120,7 +129,7 @@ const loginUser = async (req, res) => {
         res.send({data})
 
     }catch(e){
-        //handleHttpError(res, "ERROR_LOGIN_USER")
+        handleHttpError(res, "ERROR_LOGIN_USER")
     }
 };
 
