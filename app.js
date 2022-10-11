@@ -4,8 +4,8 @@ const cors = require("cors")
 const swaggerUI = require("swagger-ui-express")
 const openApiConfiguration = require("./docs/swagger")
 const {dbConnectMySQL} = require("./config/mysql")
-const router = require("./routes/usuarios/usuarios")
 const app = express()
+const router = require("./routes")
 const ENGINE_DB = process.env.ENGINE_DB;
 
 
@@ -17,13 +17,14 @@ app.use(express.static("storage"))
 
 const port = process.env.PORT || 3000
 
-app.use("/api", router)
+
 
 app.use('/documentation',
 swaggerUI.serve,
 swaggerUI.setup(openApiConfiguration))
 
 
+app.use("/api", require("./routes"));
 app.listen(port, () => {
      console.log(`App corriendo en el puerto ${port}`)
 });

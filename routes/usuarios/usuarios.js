@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const {registerUser, loginUser, getUser, getUsers, updateUser, deleteUser} = require ("../../controllers/usuarios/usuarios");
+const {registerUserCtrl, loginUserCtrl} = require ("../../controllers//usuarios/usuarios")
+
 
 
 /**
