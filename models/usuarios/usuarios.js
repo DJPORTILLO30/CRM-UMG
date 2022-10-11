@@ -1,5 +1,5 @@
 const {sequelize} = require("../../config/mysql");
-const {DataTypes}= require ("sequelize");
+const {DataTypes} = require("sequelize");
 
 const User = sequelize.define(
     "users",
@@ -12,7 +12,7 @@ const User = sequelize.define(
             type: DataTypes.STRING
         },
         phone: {
-            type: DataTypes.NUMBER
+            type: DataTypes.STRING
         },
         company:{
             type:DataTypes.STRING
@@ -20,7 +20,7 @@ const User = sequelize.define(
         role:{
             type: DataTypes.STRING
         },
-        status:{
+        state:{
             type: DataTypes.STRING
         },
         password: {
@@ -34,4 +34,6 @@ const User = sequelize.define(
 
 User.find = User.findAll;
 User.findById = User.findByPk;
-module.exports = User;
+module.exports = {
+    usersModel: User
+}

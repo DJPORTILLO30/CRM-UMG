@@ -1,6 +1,5 @@
-const {matchedData} = require("express-validator");
+const { matchedData } = require("express-validator");
 const {usersModel} = require ("../../models/usuarios/usuarios");
-
 
 /**
  * este es el controlador que muestra la lista de usuarios
@@ -9,7 +8,7 @@ const {usersModel} = require ("../../models/usuarios/usuarios");
  */
 const getUsers = async (req, res) =>{
     try{
-        const data = await usersModel.findAllData({});
+        const data = await usersModel.find({});
         res.send({data})
     }catch(e){
         //handleHttpError(res,"ERROR_GET_USERS")
@@ -24,11 +23,12 @@ const getUsers = async (req, res) =>{
  */
 const getUser = async (req, res) => {
     try{
-        req = matchedData(req);
-        const {id}= req;
-        const data = await usersModel.findOneData(id);
-        res.send({data});
+        const {id} = matchedData(req)
+        const data = await usersModel.findById(id);
+        res.send({data})
+        console.log("estoy aquí", id)
     }catch(e){
+        console.log(e)
         //handleHttpError(res,"ERROR_GET_USER)
     }
 };
@@ -42,10 +42,9 @@ const registerUser = async (req, res) =>{
     try{
         req = matchedData(req);
         const password = await encrypt(req.password);
-        const body = {...req, password};
+        const body = { ...req, password };
         const dataUser = await usersModel.create(body);
-        dataUser.set("password", undefined, {strict:false});
-
+        dataUser.set("password", undefined, { strict: false });
         const data = {
             token: await tokenSign(dataUser),
             user: dataUser
@@ -82,8 +81,8 @@ const deleteUser = async (req, res) => {
     try{
         req = matchedData(req);
         const {id} = req;
-        const deleteResponse = await usersModel.delete({id});
-        const data = {deleted: deleteResponse.matchedCount};
+        const deleteResponse = await usersModel.findByIdAndDelete(id);
+        const data = {deleted: deleteResponse.matchCount};
         res.send({data});
     }catch(e){
         //handleHttpError(res,'ERROR_DELETE_USER')
