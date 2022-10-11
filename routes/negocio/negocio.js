@@ -20,10 +20,10 @@ router.get("/:id", getBusi);
 router.post("/", createBusi);
 
 /*Actualiza un negocio*/
-router.put("/", updateBusi);
+router.put("/:id", updateBusi);
 
 /*Elimina un negocio*/
-router.delete("/", deleteBusi);
+router.delete("/:id", deleteBusi);
 
 
 module.exports = router;
