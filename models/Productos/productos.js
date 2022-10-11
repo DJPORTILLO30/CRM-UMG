@@ -35,5 +35,7 @@ const Product = sequelize.define(
 }
 );
 
+Product.find = Product.findAll;
+Product.findById = Product.findByPk;
 
 module.exports = Product;
