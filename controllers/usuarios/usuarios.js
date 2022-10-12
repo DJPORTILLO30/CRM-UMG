@@ -1,4 +1,4 @@
-const { matchedData } = require("express-validator");
+const { matchedData } = require("express-validator")
 const {usersModel} = require ("../../models/usuarios/usuarios");
 const {encrypt, compare} = require("../../utils/handlers/handlePassword");
 const {tokenSign} = require("../../utils/handlers/handleJWT");
@@ -26,14 +26,11 @@ const getUsers = async (req, res) =>{
  */
 const getUser = async (req, res) => {
     try{
-        console.log(req)               
-        const {id} = matchedData(req.body)
+        req = matchedData(req);
+        const {id} = req;
         const data = await usersModel.findById(id);
         res.send({data})
-        console.log("estoy aquí", id)
     }catch(e){                                                  
-        
-        console.log(e)
         handleHttpError(res,"ERROR_GET_USER")
     }
 };
@@ -45,11 +42,11 @@ const getUser = async (req, res) => {
  */
 const registerUser = async (req, res) =>{
     try{
-        req = matchedData(req);
+        req=matchedData(req);
         const password = await encrypt(req.password);
         const body = { ...req, password };
         const dataUser = await usersModel.create(body);
-        dataUser.set("password", { strict: false });
+        dataUser.set("password", undefined, { strict: false });
     
         const data = {
             token: await tokenSign(dataUser),
@@ -73,8 +70,11 @@ const registerUser = async (req, res) =>{
 const updateUser = async (req, res) =>{
     try{
         const {id, ...body} = matchedData(req);
+        //console.log(body)
+        //console.log(id)
         const data = await usersModel.findOneAndUpdate(id, body);
         res.send({data});
+        
     }catch(e){
         handleHttpError(res,'ERROR_UPDATE_USER')
     }
@@ -87,13 +87,13 @@ const updateUser = async (req, res) =>{
  */
 const deleteUser = async (req, res) => {
     try{
-        req = matchedData(req);
-        const {id} = req;
+        const {id} = matchedData(req)
+        console.log(id)
         const deleteResponse = await usersModel.delete(id);
-        const data = {deleted: deleteResponse.matchCount};
+        const data = {deleted: deleteResponse.matchedCount};
+        
         res.send({data});
     }catch(e){
-        console.log(e)
         handleHttpError(res,'ERROR_DELETE_USER')
     }
 };
@@ -106,26 +106,28 @@ const deleteUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try{
         req = matchedData(req);
-        const user = await usersModel.findOne({email:req.email});
-
+        const user = await usersModel.findOne({email:req.email})
+    
         if(!user){
-            handleHttpError(res, "USER_NOT_EXIST", 404);
+            handleHttpError(res, "USER_NOT_EXISTS", 404);
             return
-        };
+        }
         
         const hashPassword = user.get('password');
-        const check = await compare(req.password, hashPassword);
+        const check = await compare(req.password, hashPassword)
 
+        console.log(hashPassword)
         if(!check){
-            handleHttpError(res, "PASSWORD_INVALID", 401);
-            return
-        };
-
-        user.set('password', undefined, {strict:false});
+        handleHttpError(res, "PASSWORD_INVALID", 401);
+        return
+    }
+    
+        user.set('password', {strict:false})
         const data = {
             token: await tokenSign(user),
             user
         }
+    
         res.send({data})
 
     }catch(e){
