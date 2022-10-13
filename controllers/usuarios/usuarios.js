@@ -88,7 +88,7 @@ const updateUser = async (req, res) =>{
 const deleteUser = async (req, res) => {
     try{
         const {id} = matchedData(req)
-        console.log(id)
+        // console.log(id)
         const deleteResponse = await usersModel.delete(id);
         const data = {deleted: deleteResponse.matchedCount};
         
@@ -116,7 +116,7 @@ const loginUser = async (req, res) => {
         const hashPassword = user.get('password');
         const check = await compare(req.password, hashPassword)
 
-        console.log(hashPassword)
+        // console.log(hashPassword)
         if(!check){
         handleHttpError(res, "PASSWORD_INVALID", 401);
         return
@@ -131,6 +131,7 @@ const loginUser = async (req, res) => {
         res.send({data})
 
     }catch(e){
+        console.log(e);
         handleHttpError(res, "ERROR_LOGIN_USER")
     }
 };
