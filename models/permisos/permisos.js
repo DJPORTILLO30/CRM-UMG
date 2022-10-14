@@ -11,7 +11,15 @@ const Permission = sequelize.define(
         description: {
             type: DataTypes.STRING
         }
+    },
+    {
+        timestamps: true
     }
 );
 
-module.exports= Permission;
+Permission.find = Permission.findAll;
+Permission.findById = Permission.findByPk;
+
+module.exports={
+    permissionsModel: Permission
+}

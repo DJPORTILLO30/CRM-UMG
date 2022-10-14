@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const {getPermission, getPermissions, createPermission, updatePermission, deletePermission} = require("../../controllers/permisos/permisos");
+const {getPermission, getPermissions, createPermission, deletePermission} = require("../../controllers/permisos/permisos");
+const { validatorGetPermission, validatorCreatePermission } = require("../../validators/permisos");
 
 
 /**
@@ -8,25 +9,25 @@ const {getPermission, getPermissions, createPermission, updatePermission, delete
  */
 router.get("/", getPermissions);
 
+/**router.get("/",(req, res)=>{
+    console.log(req.body);
+   // res.send({id: 1234})
+});*/
+
 /**
  * ruta para mostrar el detalle de un permiso
  */
-router.get("/:id", getPermission);
+router.get("/:id", validatorGetPermission,getPermission);
 
 /**
  * ruta para insertar un permisos
  */
-router.post("/", createPermission);
-
-/**
- * ruta para modificar un permisos
- */
-router.put("/:id", updatePermission);
+router.post("/", validatorCreatePermission, createPermission);
 
 /**
  * ruta para eliminar un permisos
  */
- router.delete("/:id", deletePermission);
+ router.delete("/:id", validatorGetPermission, deletePermission);
 
 
  module.exports= router;
