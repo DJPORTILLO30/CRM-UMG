@@ -9,10 +9,6 @@ const { validatorGetPermission, validatorCreatePermission } = require("../../val
  */
 router.get("/", getPermissions);
 
-/**router.get("/",(req, res)=>{
-    console.log(req.body);
-   // res.send({id: 1234})
-});*/
 
 /**
  * ruta para mostrar el detalle de un permiso
