@@ -8,7 +8,7 @@ const {matchedData} = require('express-validator')
 const getPermissions = async (req, res) =>{
     try{
         const data = await permissionsModel.find({});
-        console.log(data)
+        // console.log(data)
         res.send({data});
     }catch(e){
         handleHttpError(res,"ERROR_GET_PERMISSIONS")
@@ -50,15 +50,19 @@ const getPermissions = async (req, res) =>{
     try{
         req = matchedData(req);
         const {id} = req;
-        console.log(id)
-        const deleteResponse = await permissionsModel.delete({id})
-        const data = {deleted: deleteResponse.matchedCount};
-        res.send({data})
+        const deleteResponse = await permissionsModel.destroy({
+            where: {
+                id
+            }
+        });
+        //const data = {deleted: deleteResponse.matchedCount};
+        res.send({status: "OK"})
     }catch(e){
-        handleHttpError(res, 'ERROR_DELETE_PERMISSION')
+        console.log(e);
+        handleHttpError(res,'ERROR_DELETE_PERMISSION')
+
     }
  }
-
 
 module.exports={getPermission, getPermissions, createPermission, deletePermission}
 
