@@ -5,7 +5,9 @@ const swaggerUI = require("swagger-ui-express")
 const openApiConfiguration = require("./docs/swagger")
 const {dbConnectMySQL} = require("./config/mysql")
 const app = express()
+const router = require("./routes")
 const ENGINE_DB = process.env.ENGINE_DB;
+
 
 
 app.use(cors())
@@ -22,8 +24,10 @@ swaggerUI.serve,
 swaggerUI.setup(openApiConfiguration))
 
 
-
+app.use("/api", require("./routes"));
 app.listen(port, () => {
      console.log(`App corriendo en el puerto ${port}`)
 });
 dbConnectMySQL();
+
+module.exports = app;
