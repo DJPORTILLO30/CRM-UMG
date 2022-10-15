@@ -25,5 +25,6 @@ const dbConnectMySQL = async () => {
 };
 
 module.exports = {
-    dbConnectMySQL
+    dbConnectMySQL,
+    sequelize
 }
