@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getRoles, insertRol, updateRol, deleteRol, getRol } = require("../../controllers/roles/roles");
+const { getRoles, insertRol, deleteRol, getRol } = require("../../controllers/roles/roles");
 
 
 /* ruta para mostrar la lista de roles
@@ -15,10 +15,6 @@ router.get("/:id", getRol);
  */
 router.post("/", insertRol);
 
-/* ruta para modificar un rol
- */
-router.put("/:id", updateRol);
-
 /*
   ruta para eliminar un rol
  */
@@ -26,4 +22,3 @@ router.put("/:id", updateRol);
 
  module.exports = router;
 
- //Comentario para commit//

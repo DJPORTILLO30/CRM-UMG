@@ -1,5 +1,5 @@
-const {sequelize} = require("../../config/mysql");
-const {DataTypes}= require ("sequelize");
+const {sequelize} = require ("../../config/mysql");
+const {DataTypes} = require("sequelize");
 
 const Rol = sequelize.define(
     "roles",
@@ -23,4 +23,3 @@ Rol.find = Rol.findAll;
 Rol.findById = Rol.findByPk;
 module.exports = Rol;
 
-//comentario para commit//
