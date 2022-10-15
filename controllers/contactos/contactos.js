@@ -1,22 +1,23 @@
-
+const { handleHttpError } = require("../../utils/handlers/handleError");
 const {matchedData} = require('express-validator'); 
-const {contactsModel} = require("../../models/contactos/contactos")
+const ContactModel = require("../../models/contactos/contactos")
 
 //Obtener lista de contactos
 const getContacts = async (req, res) => {
     try{
-        const data = await contactsModel.find({});
+        const data = await ContactModel.findAll({});
         res.send({ data });
     } catch (e) {
         console.log(e);
+        handleHttpError(res, "ERROR_GET_CONTACTS");
     }
 }
 
 //Obtener un contacto
 const getContact = async (req, res) => {
     try{
-        const {id} = matchedData(req);
-        const data = await contactsModel.findById(id);
+        const {id} = req.params
+        const data = await ContactModel.findOne({where:{id}});
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -26,9 +27,7 @@ const getContact = async (req, res) => {
 //Crear un contacto
 const createContact = async (req, res) => {
     try{
-        const body = matchedData(req);
-        const data = await contactsModel.create(body);
-        // res.status(201);
+        const data = await ContactModel.create(req.body);
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -38,8 +37,12 @@ const createContact = async (req, res) => {
 //Actualizar un contacto
 const updateContact = async (req, res) => {
     try{
-        const {id, ...body} = matchedData(req);
-        const data = await contactsModel.findOneAndUpdate(id, body);
+        const id = req.params.id
+        console.log(id) 
+        console.log(req.body) 
+        const data = await ContactModel.update(req.body,{
+            where:{id}
+        });
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -49,12 +52,9 @@ const updateContact = async (req, res) => {
 //Eliminar un contacto
 const deleteContact = async (req, res) => {
     try{
-        req = matchedData(req);
-        const {id} = req;
-        const deleteResponse = await contactsModel.findByIdAndDelete(id);
-        const data = {
-            deleted: deleteResponse.matchCount
-        }
+        const {id} = req.params;
+        const data = await ContactModel.destroy({where:{id}});
+     
         res.send({ data });
     } catch (e) {
         console.log(e);
