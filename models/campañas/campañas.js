@@ -3,36 +3,40 @@ const { DataTypes } = require("sequelize");
 
 //Creación del modelo campañas
 const Campaign = sequelize.define(
-  "campaigns",
+  "campañas",
   {
-    name: {
+    propietarioCampania: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    phone: {
-        type: DataTypes.NUMBER,
+    nombreCampania: {
+        type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
+    idTipoCampania: {
+      type: DataTypes.NUMBER,
+      allowNull: false
+    },
+    fechaInicio: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    fechaFin: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    estado: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    descripcion: {
       type: DataTypes.STRING,
-    },
-    industry: {
-        type: DataTypes.STRING,
-    },
-    city: {
-        type: DataTypes.STRING,
-    },
-    state: {
-        type: DataTypes.STRING,
-    },
+  },
 
   },
   {
     timestamps: true,
   }
 );
-
-Campaign.find = Campaign.findAll;
-Campaign.findById = Campaign.findByPk;
 
 module.exports = Campaign;
