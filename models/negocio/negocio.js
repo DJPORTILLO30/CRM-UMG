@@ -4,38 +4,32 @@ const { DataTypes } = require("sequelize");
 const Busi = sequelize.define(
     "busis",
     { 
-
         name: {
             type: DataTypes.STRING,
             allowNull:false
         },
-
         contactName: {
             type: DataTypes.STRING
         },
-
         amount:{
             type: DataTypes.FLOAT
-        },
-        
+        },        
         income:{
             type: DataTypes.FLOAT
         },
-
-        ClosingDate:{
+        closingDate:{
             type:DataTypes.DATE
         },
-
         campaingSource: {
             type: DataTypes.STRING
         },
-       
         description: {
             type: DataTypes.STRING
         }
     },
     {
 
+    freezeTableName: true,
     timestamps:true
 
     }
@@ -43,8 +37,6 @@ const Busi = sequelize.define(
 
 Busi.find = Busi.findAll;
 Busi.findById = Busi.findByPk;
-Busi.findOneAndUpdate = Busi.findOneAndUpdate;
-Busi.delete = Busi.destroy
 
 module.exports = {
     busisModel: Busi

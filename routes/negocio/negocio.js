@@ -2,6 +2,7 @@ const express = require("express");
 const router= express.Router();
 const {
      getBusi,
+     getBusis,
      createBusi, 
      updateBusi, 
      deleteBusi
@@ -11,10 +12,7 @@ const {
 /**
  * Mostrar lista de negocios
  */
-router.get("/", (req, res) => {
-     console.log("HELLO MAI FRENS");
-     res.send({mensaje: "hola123"})
- });
+router.get("/", getBusis);
 
 /**
  * Mostrar detalles

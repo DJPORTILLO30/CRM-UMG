@@ -23,13 +23,14 @@ try{
  */
 const getBusi = async(req, res) =>{
     try{
-       req = matchedData(req);
-       const {id} = req;
-       const data = await busisModel.finById(id)
+    //    req = matchedData(req);
+       const {id} = req.params;
+       console.log(id);
+       const data = await busisModel.findById(id)
        res.send({data});
    
-   } catch(e) 
-       {
+   } catch(e){
+        console.log(e);
         handleHttpError(res,"ERROR_GET_BUSIS")
        };
    };
@@ -38,14 +39,14 @@ const getBusi = async(req, res) =>{
  * */
 const createBusi = async(req, res) =>{
     try{
-       const body = matchedData(req);
+        const {body} = req;
        const data = await busisModel.create(body);
        res.send({data});
    
-   }catch(e)
-       {
-          handleHttpError(res,'ERROR_CREATE_BUSIS')  
-       };   
+   }catch(e){
+        console.log(e);
+        handleHttpError(res,'ERROR_CREATE_BUSIS')  
+    };
    };
 /**
  * Controla las actualizaciones de negocios*
@@ -53,8 +54,18 @@ const createBusi = async(req, res) =>{
 const updateBusi = async(req, res) =>{
     try {
        const {id, ...body} = matchedData(req);
-       const data = await busisModel.update(id, body);
-       res.send({data});
+       const data = await busisModel.update({
+        name: req.body.name,
+        contactName: req.body.contactName,
+        amount: req.body.amount,
+        income: req.body.income,
+        closingDate: req.body.closingDate,
+        campaingSource: req.body.campaingSource,
+        description: req.body.description,
+
+    }, {where:{id}});
+
+    res.send({data});
    
    }catch (e)
        {
