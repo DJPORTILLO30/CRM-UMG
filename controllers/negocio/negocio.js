@@ -1,69 +1,87 @@
-const {busisModel}= require ("../../models/negocio/negocio")
+const {busisModel}= require ("../../models/negocio/negocio");
+const {handleHttpError} = require("../../utils/handlers/handleError");
 const {matchedData} = require("express-validator")
 
 
-/*Controla la lista de negocios*/
+/**
+ * Controla la lista de negocios
+ */
 const getBusis = async(req, res) => {
 try{
-    const busi = await busisModel.findAllData({});
-    res.send({busi});
+    const data = await busisModel.find({});
+    res.send({data});
+    console.log(data)
 
 } catch(e)
     {  
-    //handleHttpError(res,"ERROR_GET_BUSIS") 
+    handleHttpError(res,"ERROR_GET_BUSIS") 
+    console.log(e)
      };
 };
-/*Controla los detalles mostrados de un negocio en especifico*/
+/**
+ * Controla los detalles mostrados de un negocio en especifico
+ */
 const getBusi = async(req, res) =>{
     try{
        req = matchedData(req);
        const {id} = req;
-       const busi = await busisModel.finOneData(id)
-       res.send({busi});
+       const data = await busisModel.finById(id)
+       res.send({data});
    
    } catch(e) 
        {
-        //handleHttpError(res,"ERROR_GET_BUSIS")
+        handleHttpError(res,"ERROR_GET_BUSIS")
        };
    };
-/*Controla la creacion de negocios*/
+/**
+ * Controla la creacion de negocios
+ * */
 const createBusi = async(req, res) =>{
     try{
        const body = matchedData(req);
-       const busi = await busisModel.create(body);
-       res.send({busi});
+       const data = await busisModel.create(body);
+       res.send({data});
    
    }catch(e)
        {
-          //handleHttpError(res,'ERROR_CREATE_BUSIS')  
+          handleHttpError(res,'ERROR_CREATE_BUSIS')  
        };   
    };
-/*Controla las actualizaciones de negocios*/
+/**
+ * Controla las actualizaciones de negocios*
+ */
 const updateBusi = async(req, res) =>{
     try {
        const {id, ...body} = matchedData(req);
-       const busi = await busisModel.findOneAndUpdate(id, body);
-       res.send({busi});
+       const data = await busisModel.update(id, body);
+       res.send({data});
    
    }catch (e)
        {
-            //handleHttpError(res,'ERROR_UPDATE_BUSIS')
+            handleHttpError(res,'ERROR_UPDATE_BUSIS')
        }
    };
-/*controla las eliminaciones de negocios*/
+/**
+ * controla las eliminaciones de negocios
+ */
 const deleteBusi = async(req, res) => {
     try{
         req = matchedData(req)
         const{id} = req;
-        const deleteResponse = await busisModel.delete({id});
-        const busi = {deleted: deleteResponse.matchedCount};
-        res.send({busi});
+        const deleteResponse = await busisModel.destroy({
+            where: {
+                id
+        }
+    });
+        //const busi = {deleted: deleteResponse.matchedCount};
+        res.send({status: "OK"});
     
     }catch(e)
         {
-           //handleHttpError(res,'ERROR_DELETE_BUSIS')  
-        };
-    };
+            console.log(e)
+           handleHttpError(res,'ERROR_DELETE_BUSIS')  
+        }
+    }
 
 module.exports = {getBusis, getBusi, createBusi, updateBusi, deleteBusi}
 

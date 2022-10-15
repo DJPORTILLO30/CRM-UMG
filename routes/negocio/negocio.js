@@ -1,8 +1,6 @@
 const express = require("express");
 const router= express.Router();
 const {
-
-     getBusis, 
      getBusi,
      createBusi, 
      updateBusi, 
@@ -10,19 +8,32 @@ const {
       
 } = require("../../controllers/negocio/negocio");
 
-/*Mostrar lista de negocios*/
-router.get("/", getBusis);
+/**
+ * Mostrar lista de negocios
+ */
+router.get("/", (req, res) => {
+     console.log("HELLO MAI FRENS");
+     res.send({mensaje: "hola123"})
+ });
 
-/*Mostrar detalles*/
+/**
+ * Mostrar detalles
+ */
 router.get("/:id", getBusi);
 
-/*Crear un negocio*/
+/**
+ * Crear un negocio
+ */
 router.post("/", createBusi);
 
-/*Actualiza un negocio*/
+/**
+ * Actualiza un negocio
+ */
 router.put("/:id", updateBusi);
 
-/*Elimina un negocio*/
+/**
+ * Elimina un negocio
+ */
 router.delete("/:id", deleteBusi);
 
 

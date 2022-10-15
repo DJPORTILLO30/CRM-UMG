@@ -36,12 +36,16 @@ const Busi = sequelize.define(
     },
     {
 
-    timestamps:true,
+    timestamps:true
 
     }
 );
 
 Busi.find = Busi.findAll;
 Busi.findById = Busi.findByPk;
+Busi.findOneAndUpdate = Busi.findOneAndUpdate;
+Busi.delete = Busi.destroy
 
-module.exports = Busi;
+module.exports = {
+    busisModel: Busi
+}
