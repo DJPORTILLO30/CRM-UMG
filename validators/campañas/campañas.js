@@ -22,4 +22,4 @@ const validatorCreateCampaign = [
 ];
 
 
-module.exports = {validatorGetCampaign, validatorCreateCampaign, validatorUpdateCampaign}
+module.exports = {validatorGetCampaign, validatorCreateCampaign}

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {getCampaigns, getCampaign, createCampaign, updateCampaign, deleteCampaign} = require("../../controllers/campañas/campañas.js")
-const {validatorGetCampaign, validatorCreateCampaign, validatorUpdateCampaign} = require("../../validators/campañas/campañas")
+const {validatorGetCampaign, validatorCreateCampaign} = require("../../validators/campañas/campañas")
 
 //Ruta para listar campañas
 router.get("/", getCampaigns);

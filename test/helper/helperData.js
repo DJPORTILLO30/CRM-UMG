@@ -1,12 +1,13 @@
 
   const testDataCampaign = {
-    name: "prueba1",
-    phone: "12345678",
-    email: "test@test.com",
-    industry: "industria",
-    city: "Guatemala",
-    state: "1"
-  };
+    propietarioCampania: "user1",
+    nombreCampania: "campaign1",
+    idTipoCampania: 1,
+    fechaInicio: "05/12/2022",
+    fechaFin: "05/13/2022",
+    estado: "ACTIVO",
+    descripcion: "texto"
+};
   
 
   module.exports = {
