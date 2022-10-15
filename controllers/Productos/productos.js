@@ -1,6 +1,5 @@
 const {productsModel} = require("../../models/Productos/productos");
 const {matchedData} = require("express-validator");
-const { body } = require("express-validator");
 
 
 /* este es el controlador encargado de mostrar la lista de productos
@@ -44,10 +43,18 @@ const getProducts = async (req, res) =>{
  const updateProducts = async (req, res) =>{
     try{
         const {id, ...body} = matchedData(req);
-        const products = await productsModel.findOneAndUpdate(id,body);
+        const products = await productsModel.update({
+        name: req.body.name,
+        description: req.body.description,
+        Category:req.body.Category,
+        Price: req.body.Price,
+        Feature: req.body.Feature,
+        }, {where:{id}});
+
         res.send({products});
+
     }catch(e){
-        //handleHttpError(res,'ERROR_UPDATE_Products')
+        handleHttpError(res,'ERROR_UPDATE_Products')
     };
 };
 
@@ -58,13 +65,20 @@ const getProducts = async (req, res) =>{
     try{
         req = matchedData(req)
         const{id} = req;
-        const deleteResponse = await productsModel.delete({id});
-        const products = {deleted: deleteResponse.matchedCount};
-        res.send({products});
+        const deleteResponse = await productsModel.destroy({
+            where: {
+                id
+            }
+        });
 
-    }catch(e){
-        //handleHttpError(res,'ERROR_DELETE_Products')  
-    };
-};
+        //const products = {deleted: deleteResponse.matchedCount};
+        res.send({status: "ok"});
+    
+    }catch(e)
+    {
+        console.log(e)
+        handleHttpError(res,'ERROR_DELETE_Products')  
+    }
+}
 
 module.exports={getProducts, getProduct, insertProducts, updateProducts,deleteProducts}
