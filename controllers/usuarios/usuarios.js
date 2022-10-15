@@ -53,11 +53,9 @@ const registerUser = async (req, res) =>{
             user: dataUser
         };
 
-
         res.status(201)
         res.send({ data })
       }catch(e){
-        console.log(e)
         handleHttpError(res, "ERROR_REGISTER_USER")
       }
 };
@@ -71,8 +69,6 @@ const updateUser = async (req, res) =>{
     try{
         const password = await encrypt(req.body.password)
         const {id, ...body} = matchedData(req);
-        //console.log(body)
-        //console.log(id)
         const data = await usersModel.update({
             name: req.body.name,
             email: req.body.email,
@@ -81,7 +77,6 @@ const updateUser = async (req, res) =>{
             role: req.body.role,
             state: req.body.state,
             password: password,
-
         }, {where:{id}})
 
             res.json({body});
@@ -100,9 +95,8 @@ const updateUser = async (req, res) =>{
 const deleteUser = async (req, res) => {
     try{
         const {id} = matchedData(req)
-        // console.log(id)
         const deleteResponse = await usersModel.destroy({where: {id}});
-        //const data = {deleted: deleteResponse.matchedCount};
+
         
         res.send({status: "OK"});
     }catch(e){
@@ -137,7 +131,6 @@ const loginUser = async (req, res) => {
             handleHttpError(res, "PASSWORD_INVALID", 401);
             return
         }
-        console.log(hashPassword)
     
         user.set('password', undefined, {strict:false})
         const data = {
@@ -148,7 +141,6 @@ const loginUser = async (req, res) => {
         res.send({data})
 
     }catch(e){
-        console.log(e);
         handleHttpError(res, "ERROR_LOGIN_USER")
     }
 };
