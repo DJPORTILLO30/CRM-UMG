@@ -2,7 +2,7 @@ const express = require("express");
 const router= express.Router();
 const {
 
-     getCalls, 
+     getCalls,
      getCall,
      createCall,
      updateCall, 
@@ -40,7 +40,7 @@ router.put("/:id", updateCall);
 /**
  *  Elimina una llamada 
  */
-router.delete("/", deleteCall);
+router.delete("/:id", deleteCall);
 
 
 module.exports = router;

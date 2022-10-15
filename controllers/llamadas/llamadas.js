@@ -1,7 +1,8 @@
 /**
  * Encontraras los controladores 
  */
-const {callsModel}= require ("../../models/llamadas/llamadas")
+const {callsModel}= require ("../../models/llamadas/llamadas");
+const {handleHttpError} = require("../../utils/handlers/handleError");
 const {matchedData} = require("express-validator")
 
 /**
@@ -9,12 +10,14 @@ const {matchedData} = require("express-validator")
  */
 const getCalls = async(req, res) => {
 try{
-    const call = await callsModel.findAllData({});
-    res.send({call});
+    const data = await callsModel.find({});
+    res.send({data});
+    console.log(data)
 
 } catch(e)
     {  
-    //handleHttpError(res,"ERROR_GET_CALLS") 
+    handleHttpError(res,"ERROR_GET_CALLS") 
+    console.log(e)
      };
 };
 
@@ -23,14 +26,16 @@ try{
  */
 const getCall = async(req, res) =>{
  try{
-    req = matchedData(req);
-    const {id} = req;
-    const call = await callsModel.finOneData(id)
-    res.send({call});
+ //    req = matchedData(req);
+    const {id} = req.params;
+    console.log(id);
+    const data = await callsModel.findById(id)
+    res.send({data});
 
 } catch(e) 
     {
-     //handleHttpError(res,"ERROR_GET_CALLS")
+    console.log(e);
+    handleHttpError(res,"ERROR_GET_CALLS")
     };
 };
 
@@ -40,13 +45,14 @@ const getCall = async(req, res) =>{
  */
 const createCall = async(req, res) =>{
  try{
-    const body = matchedData(req);
-    const call = await callsModel.create(body);
-    res.send({call});
+     const {body} = req;
+    const data = await callsModel.create(body);
+    res.send({data});
 
 }catch(e)
     {
-       //handleHttpError(res,'ERROR_CREATE_CALLS')  
+        console.log(e)
+        handleHttpError(res,'ERROR_CREATE_CALLS')  
     };   
 };
 
@@ -56,12 +62,19 @@ const createCall = async(req, res) =>{
 const updateCall = async(req, res) =>{
  try {
     const {id, ...body} = matchedData(req);
-    const call = await callsModel.findOneAndUpdate(id, body);
-    res.send({call});
+    const data = await callsModel.update({
+        contactName: req.body.contactName,
+        description: req.body.description,
+        comunicationDate: req.body.comunicationDate
+    
+    }, {where:{id}});
+
+
+    res.send({data});
 
 }catch (e)
     {
-         //handleHttpError(res,'ERROR_UPDATE_CALLS')
+         handleHttpError(res,'ERROR_UPDATE_CALLS')
     }
 };
 
@@ -73,13 +86,21 @@ const deleteCall= async (req, res) => {
 try{
     req = matchedData(req)
     const{id} = req;
-    const deleteResponse = await callsModel.delete({id});
-    const call = {deleted: deleteResponse.matchedCount};
-    res.send({call});
+    const deleteResponse = await callsModel.destroy({
+        where: {
+            id
+        }
+    
+    });
+    
+    
+    //const call = {deleted: deleteResponse.matchedCount};
+    res.send({stauts:"OK"});
 
 }catch(e)
     {
-       //handleHttpError(res,'ERROR_DELETE_CALLS')  
+       console.log(e)
+        handleHttpError(res,'ERROR_DELETE_CALLS')  
     };
 };
 

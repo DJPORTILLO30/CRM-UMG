@@ -2,23 +2,31 @@ const { sequelize } = require("../../config/mysql")
 const { DataTypes } = require("sequelize");
 
 const Call = sequelize.define(
-    "Calls",
+    "communicationType",
     {
 
-        name: {
+        contactName: {
             type: DataTypes.STRING,
             allowNull:false
         },
-        
-        phone: {
-            type: DataTypes.NUMBER
-        }
+        description: {
+            type: DataTypes.STRING
+        },
 
+         comunicationDate: {
+            type: DataTypes.DATE
+        }
+    },
+    {
+        frezeTableName: true,
+        timestamps:true
     }
-    
 );
 
 Call.find = Call.findAll;
 Call.findById = Call.findByPk;
 
-module.exports = Call;
+module.exports ={
+
+  callsModel: Call
+}
