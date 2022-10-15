@@ -43,7 +43,7 @@ const getUser = async (req, res) => {
 const registerUser = async (req, res) =>{
     try{
         req=matchedData(req);
-        const password = await encrypt(req.password);
+        const password = await encrypt(req.password)
         const body = { ...req, password };
         const dataUser = await usersModel.create(body);
         dataUser.set("password", undefined, { strict: false });
@@ -69,11 +69,23 @@ const registerUser = async (req, res) =>{
  */
 const updateUser = async (req, res) =>{
     try{
+        const password = await encrypt(req.body.password)
         const {id, ...body} = matchedData(req);
         //console.log(body)
         //console.log(id)
-        const data = await usersModel.findOneAndUpdate(id, body);
-        res.send({data});
+        const data = await usersModel.update({
+            name: req.body.name,
+            email: req.body.email,
+            phone: req.body.phone,
+            company: req.body.company,
+            role: req.body.role,
+            state: req.body.state,
+            password: password,
+
+        }, {where:{id}})
+
+            res.json({body});
+
         
     }catch(e){
         handleHttpError(res,'ERROR_UPDATE_USER')
@@ -89,10 +101,10 @@ const deleteUser = async (req, res) => {
     try{
         const {id} = matchedData(req)
         // console.log(id)
-        const deleteResponse = await usersModel.delete(id);
-        const data = {deleted: deleteResponse.matchedCount};
+        const deleteResponse = await usersModel.destroy({where: {id}});
+        //const data = {deleted: deleteResponse.matchedCount};
         
-        res.send({data});
+        res.send({status: "OK"});
     }catch(e){
         handleHttpError(res,'ERROR_DELETE_USER')
     }
@@ -106,23 +118,28 @@ const deleteUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try{
         req = matchedData(req);
-        const user = await usersModel.findOne({email:req.email})
-    
+        const user = await usersModel.findOne({
+            where: {
+                email: req.email
+            }
+        });
+
         if(!user){
             handleHttpError(res, "USER_NOT_EXISTS", 404);
             return
         }
         
+        
         const hashPassword = user.get('password');
         const check = await compare(req.password, hashPassword)
 
-        // console.log(hashPassword)
         if(!check){
-        handleHttpError(res, "PASSWORD_INVALID", 401);
-        return
-    }
+            handleHttpError(res, "PASSWORD_INVALID", 401);
+            return
+        }
+        console.log(hashPassword)
     
-        user.set('password', {strict:false})
+        user.set('password', undefined, {strict:false})
         const data = {
             token: await tokenSign(user),
             user
