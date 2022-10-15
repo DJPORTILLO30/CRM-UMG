@@ -22,3 +22,5 @@ const Rol = sequelize.define(
 Rol.find = Rol.findAll;
 Rol.findById = Rol.findByPk;
 module.exports = Rol;
+
+//comentario para commit//

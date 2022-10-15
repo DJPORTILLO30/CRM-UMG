@@ -66,3 +66,5 @@ const getRoles = async(req, res) =>{
 
 
 module.exports={getRoles, getRol, insertRol, updateRol,deleteRol}
+
+//comentario para commit//
