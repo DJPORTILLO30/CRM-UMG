@@ -10,12 +10,10 @@ const getBusis = async(req, res) => {
 try{
     const data = await busisModel.find({});
     res.send({data});
-    console.log(data)
 
 } catch(e)
     {  
     handleHttpError(res,"ERROR_GET_BUSIS") 
-    console.log(e)
      };
 };
 /**
@@ -25,12 +23,10 @@ const getBusi = async(req, res) =>{
     try{
     //    req = matchedData(req);
        const {id} = req.params;
-       console.log(id);
        const data = await busisModel.findById(id)
        res.send({data});
    
    } catch(e){
-        console.log(e);
         handleHttpError(res,"ERROR_GET_BUSIS")
        };
    };
@@ -44,7 +40,6 @@ const createBusi = async(req, res) =>{
        res.send({data});
    
    }catch(e){
-        console.log(e);
         handleHttpError(res,'ERROR_CREATE_BUSIS')  
     };
    };
@@ -90,7 +85,7 @@ const deleteBusi = async(req, res) => {
     }catch(e)
         {
             console.log(e)
-           handleHttpError(res,'ERROR_DELETE_BUSIS')  
+            handleHttpError(res,'ERROR_DELETE_BUSIS')  
         }
     }
 

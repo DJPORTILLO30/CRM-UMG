@@ -44,7 +44,7 @@ const validatorGetBusi = [
 const validatorUpdateBusi = [
     check("id")
     .exists()
-    .notEmpty(), //* .isMongoId(), se le debe de agregar pero cuando se defina la base de datos 
+    .notEmpty(),
     check("name")
     .exists()
     .notEmpty(),
