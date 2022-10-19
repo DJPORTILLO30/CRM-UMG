@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../app");
 const tokenSign = require("../../utils/handlers/handleJWT")
-const { rolesModel } = require("../../models/roles/roles")
+const rolesModel = require("../../models/roles/roles")
 const { testRolRegister } = require("./helper/helperData");
 let JWT_TOKEN = "";
 
@@ -31,7 +31,7 @@ test("Returns the list of roles", async () => {
  
 test("Return the detail of a rol", async () => {
     
-    const { id } = await rolesModel.findOne({});
+    const { id } = await rolesModel.findOne();
     const res = await request(app)
         .get(`/api/roles/${id}`)
         .set("Authorization", `Bearer ${JWT_TOKEN}`);
