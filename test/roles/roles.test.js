@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../app");
 const tokenSign = require("../../utils/handlers/handleJWT")
-const { rolModel } = require("../../models/roles/roles")
+const { rolesModel } = require("../../models/roles/roles")
 const { testRolRegister } = require("./helper/helperData");
 let JWT_TOKEN = "";
 
@@ -28,21 +28,22 @@ test("Returns the list of roles", async () => {
     const { data } = body;
     expect (body).toHaveProperty("data")
 })
-
+ 
 test("Return the detail of a rol", async () => {
-    const { id } = await rolModel.findOne({});
+    
+    const { id } = await rolesModel.findOne({});
     const res = await request(app)
-        .get(`/api/rol/${id}`)
+        .get(`/api/roles/${id}`)
         .set("Authorization", `Bearer ${JWT_TOKEN}`);
     const { body } = res;
     expect(res.statusCode).toEqual(200);
     expect(body).toHaveProperty("data");
 })
 
-test("removes the rol", async () => {
-    const {id} = await rolModel.findOne({});
+test("Removes the rol", async () => {
+    const {id} = await rolesModel.findOne({});
     const res = await request(app)
-    .delete(`/api/rol/${id}`)
+    .delete(`/api/roles/${id}`)
     .set("Authorization", `Bearer ${JWT_TOKEN}`);
     expect(res.statusCode).toEqual(200);
 })
