@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const {getUsers, getUser,registerUser, updateUser, deleteUser, loginUser,} = require ("../../controllers//usuarios/usuarios");
 const { validatorGetUser, validatorLoginUser, validatorRegisterUser, validatorUpdateUser } = require("../../validators/usuarios");
-
+const {authMiddleware} = require ("../../middleware/sesion")
+const {checkRol} = require("../../middleware/rol")
 
 
 /**
@@ -28,7 +29,7 @@ router.put("/:id",validatorUpdateUser, updateUser);
 /**
  * eliminar un usuario
  */
-router.delete("/:id", validatorGetUser, deleteUser);
+router.delete("/:id", validatorGetUser, authMiddleware, checkRol(["admin"]), deleteUser);
 /**
  * ruta para iniciar sesión
  */

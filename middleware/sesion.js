@@ -1,15 +1,15 @@
-const {handleHttpError} = require("../utils/handleError");
-const { verifyToken } = require("../utils/handleJWT");
-const {userModel} = require('../models');
-const { matchedData } = require("express-validator");
-const getPropierties = require("../utils/handlePropertiesEngine")
-const propiertiesKey = getPropierties()
+const {handleHttpError} = require("../utils/handlers/handleError");
+const { verifyToken } = require("../utils/handlers/handleJWT");
+const {userModel} = require('../models/usuarios/usuarios');
+const getProperties = require("../utils/handlers/handlePropierties") 
+const propertiesKey = getProperties()
 
 const authMiddleware = async (req,res,next) =>{
     try {
 
         if(!req.headers.authorization){
             handleHttpError(res,"NOT_TOKEN",401)
+            return
         }
 
         const token = req.headers.authorization.split(' ').pop();
@@ -21,7 +21,7 @@ const authMiddleware = async (req,res,next) =>{
         }
 
         const query = {
-            [propiertiesKey.id]: dataToken[propiertiesKey.id]
+            [propertiesKey.id]:dataToken[propertiesKey.id]
         }
 
         const user = await userModel.findOne(query)
@@ -31,6 +31,8 @@ const authMiddleware = async (req,res,next) =>{
         
     } catch (e) {
         handleHttpError(res,"NOT_SESSION",401);
+        console.log(e)
+        console.log(token)
     }
 }
 
