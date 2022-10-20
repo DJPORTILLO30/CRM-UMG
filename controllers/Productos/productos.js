@@ -9,7 +9,7 @@ const getProducts = async (req, res) =>{
         const products = await productsModel.findAllaData({});
         res.send({products});
     }catch(e){
-         //handleHttpError(res,"ERROR_GET_Products")
+         handleHttpError(res,"ERROR_GET_Products")
     };
 };
 
@@ -22,7 +22,7 @@ const getProducts = async (req, res) =>{
         const products = await productsModel.finOneData(id)
         res.send({products});
     }catch(e){
-         //handleHttpError(res,"ERROR_GET_Product")
+         handleHttpError(res,"ERROR_GET_Product")
     };
 };
 
@@ -34,7 +34,7 @@ const getProducts = async (req, res) =>{
     const products = await productsModel.create(body);
     res.send({products});
    }catch(e){
-     //handleHttpError(res,'ERROR_CREATE_Products') 
+     handleHttpError(res,'ERROR_CREATE_Products') 
    };
 };
 
@@ -70,15 +70,18 @@ const getProducts = async (req, res) =>{
                 id
             }
         });
+        const products = {
+            filepath,
+            deleted:deleteResponse.matchedCount,
+        };
 
-        //const products = {deleted: deleteResponse.matchedCount};
-        res.send({status: "ok"});
+        res.send({products});
     
     }catch(e)
     {
         console.log(e)
         handleHttpError(res,'ERROR_DELETE_Products')  
     }
-}
+};
 
 module.exports={getProducts, getProduct, insertProducts, updateProducts,deleteProducts}
