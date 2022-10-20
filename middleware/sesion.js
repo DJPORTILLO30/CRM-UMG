@@ -1,6 +1,6 @@
 const {handleHttpError} = require("../utils/handlers/handleError");
 const { verifyToken } = require("../utils/handlers/handleJWT");
-const {userModel} = require('../models/usuarios/usuarios');
+const {userModel, usersModel} = require('../models/usuarios/usuarios');
 const getProperties = require("../utils/handlers/handlePropierties") 
 const propertiesKey = getProperties()
 
@@ -23,8 +23,8 @@ const authMiddleware = async (req,res,next) =>{
         const query = {
             [propertiesKey.id]:dataToken[propertiesKey.id]
         }
-
-        const user = await userModel.findOne(query)
+        
+        const user = await usersModel.findById(query.id)
         req.user = user
 
         next()
@@ -32,7 +32,6 @@ const authMiddleware = async (req,res,next) =>{
     } catch (e) {
         handleHttpError(res,"NOT_SESSION",401);
         console.log(e)
-        console.log(token)
     }
 }
 
