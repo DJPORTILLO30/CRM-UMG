@@ -9,7 +9,7 @@ beforeAll(async () => {
   const contact = await ContactModel.create(testDataContact);
 });
 
-test("deberia registra un item", async () => {
+test("Register a contact", async () => {
   const dataContactNew = { 
     ...testDataContact, 
     };
@@ -20,12 +20,12 @@ test("deberia registra un item", async () => {
   const { body } = res;
   expect(res.statusCode).toEqual(200);
   expect(body).toHaveProperty("data");
-  expect(body).toHaveProperty("data.propietarioContacto");
+  expect(body).toHaveProperty("data.ownerContact");
   expect(body).toHaveProperty("data.email");
   expect(body).toHaveProperty("data.phone");
 });
 
-test("should create a return all", async () => {
+test("Returns the list of contacts", async () => {
   const res = await request(app)
     .get("/api/contacts")
   const { body } = res;
@@ -34,7 +34,7 @@ test("should create a return all", async () => {
   expect(body).toHaveProperty("data");
 });
 
-test("debe retornar todo el detalle del item", async () => {
+test("Return the detail of a contact", async () => {
   const { _id } = await ContactModel.findOne({});
   id = _id;
   const res = await request(app)
@@ -44,7 +44,7 @@ test("debe retornar todo el detalle del item", async () => {
   expect(body).toHaveProperty("data");
 });
 
-test("debe eliminar el item", async () => {
+test("Removes the contact", async () => {
   const { _id } = await ContactModel.findOne({});
   id = _id;
   const res = await request(app)

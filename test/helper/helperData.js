@@ -1,10 +1,10 @@
 const testDataContact = {
-      propietarioContacto: "prueba1",
+  ownerContact: "prueba1",
       email: "test@test.com",
       phone: 1236548,
-      departamento:"finanzasPrueba",
-      direccion:"02prueba",
-      descripcion:"test"
+      department:"finanzasPrueba",
+      address:"02prueba",
+      description:"test"
   };
 
   module.exports = {

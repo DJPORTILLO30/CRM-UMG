@@ -1,11 +1,11 @@
 const { handleHttpError } = require("../../utils/handlers/handleError");
 const {matchedData} = require('express-validator'); 
-const ContactModel = require("../../models/contactos/contactos")
+const contactModel = require("../../models/contactos/contactos")
 
 //Obtener lista de contactos
 const getContacts = async (req, res) => {
     try{
-        const data = await ContactModel.findAll({});
+        const data = await contactModel.findAll({});
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -17,7 +17,7 @@ const getContacts = async (req, res) => {
 const getContact = async (req, res) => {
     try{
         const {id} = req.params
-        const data = await ContactModel.findOne({where:{id}});
+        const data = await contactModel.findOne({where:{id}});
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -27,7 +27,7 @@ const getContact = async (req, res) => {
 //Crear un contacto
 const createContact = async (req, res) => {
     try{
-        const data = await ContactModel.create(req.body);
+        const data = await contactModel.create(req.body);
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -40,7 +40,7 @@ const updateContact = async (req, res) => {
         const id = req.params.id
         console.log(id) 
         console.log(req.body) 
-        const data = await ContactModel.update(req.body,{
+        const data = await contactModel.update(req.body,{
             where:{id}
         });
         res.send({ data });
@@ -53,7 +53,7 @@ const updateContact = async (req, res) => {
 const deleteContact = async (req, res) => {
     try{
         const {id} = req.params;
-        const data = await ContactModel.destroy({where:{id}});
+        const data = await contactModel.destroy({where:{id}});
      
         res.send({ data });
     } catch (e) {

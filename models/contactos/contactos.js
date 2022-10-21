@@ -6,7 +6,7 @@ const { DataTypes } = require("sequelize");
 const Contact = sequelize.define(
   "contactos",
   {
-    propietarioContacto: {
+    ownerContact: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -18,13 +18,13 @@ const Contact = sequelize.define(
         type: DataTypes.NUMBER,
         allowNull: false
     },
-    departamento:{
+    department:{
       type:DataTypes.STRING,
     },
-    direccion:{
+    address:{
       type:DataTypes.STRING,
     },
-    descripcion:{
+    description:{
       type:DataTypes.STRING,
     },
   },
