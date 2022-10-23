@@ -7,10 +7,9 @@ const {handleHttpError} = require("../../utils/handlers/handleError")
  */
 const getProducts = async (req, res) =>{
     try{
-        const products = await productsModel.find({});
+        const products = await productsModel.findAllData({});
         res.send({products});
     }catch(e){
-        console.log(e);
         handleHttpError(res,"ERROR_GET_Products")
 
     };
