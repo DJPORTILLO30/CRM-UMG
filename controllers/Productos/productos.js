@@ -1,15 +1,18 @@
-const {productsModel} = require("../../models/Productos/productos");
+const productsModel = require("../../models/Productos/productos");
 const {matchedData} = require("express-validator");
+const {handleHttpError} = require("../../utils/handlers/handleError")
 
 
 /* este es el controlador encargado de mostrar la lista de productos
  */
 const getProducts = async (req, res) =>{
     try{
-        const products = await productsModel.findAllaData({});
+        const products = await productsModel.find({});
         res.send({products});
     }catch(e){
-         handleHttpError(res,"ERROR_GET_Products")
+        console.log(e);
+        handleHttpError(res,"ERROR_GET_Products")
+
     };
 };
 
