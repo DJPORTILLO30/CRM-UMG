@@ -1,15 +1,17 @@
-const {permissionsModel} = require("../../models/permisos/permisos")
-const {matchedData} = require("express-validator")
+const {permissionsModel} = require("../../models/permisos/permisos");
+const { handleHttpError } = require("../../utils/handlers/handleError");
+const {matchedData} = require('express-validator')
 
 /**
  * este es el controlador encargado de mostrar la lista de permisos
  */
-const getPermissions = async(req, res) =>{
+const getPermissions = async (req, res) =>{
     try{
-        const data = await permissionsModel.findAllData({});
+        const data = await permissionsModel.find({});
+        // console.log(data)
         res.send({data});
     }catch(e){
-        //handleHttpError(res,"ERROR_GET_PERMISSIONS")
+        handleHttpError(res,"ERROR_GET_PERMISSIONS")
     }; 
 };
 
@@ -20,10 +22,10 @@ const getPermissions = async(req, res) =>{
     try{
         req = matchedData(req);
         const {id} = req;
-        const data = await permissionsModel.findOneData(id);
+        const data = await permissionsModel.findById(id);
         res.send({data});
     }catch(e){
-        //handleHttpError(res,"ERROR_GET_PERMISSION")
+        handleHttpError(res,"ERROR_GET_PERMISSION")
     };
 };
 
@@ -36,22 +38,10 @@ const getPermissions = async(req, res) =>{
         const data = await permissionsModel.create(body);
         res.send({data});
     }catch(e){
-        //handleHttpError(res,'ERROR_CREATE_PERMISSION')
+        handleHttpError(res,'ERROR_CREATE_PERMISSION')
     };
 };
 
-/**
- * este es el controlador encargado de modificar un permiso
- */
- const updatePermission = async (req, res) =>{
-    try{
-        const {id, ...body} = matchedData(req);
-        const data = await permissionsModel.findOneAndUpdate(id, body);
-        res.send({data});
-    }catch(e){
-        //handleHttpError(res,'ERROR_UPDATE_PERMISSION')
-    };
-};
 
 /**
  * este es el controlador encargado de eliminar un permiso
@@ -60,14 +50,19 @@ const getPermissions = async(req, res) =>{
     try{
         req = matchedData(req);
         const {id} = req;
-        const deleteResponse = await permissionsModel.delete({id});
-        const data = {deleted: deleteResponse.matchedCount};
-        res.send({data})
+        const deleteResponse = await permissionsModel.destroy({
+            where: {
+                id
+            }
+        });
+        //const data = {deleted: deleteResponse.matchedCount};
+        res.send({status: "OK"})
     }catch(e){
-        //handleHttpError(res,'ERROR_DELETE_PERMISSION')
-    };
-};
+        console.log(e);
+        handleHttpError(res,'ERROR_DELETE_PERMISSION')
 
+    }
+ }
 
-module.exports={getPermission, getPermissions, createPermission, updatePermission, deletePermission}
+module.exports={getPermission, getPermissions, createPermission, deletePermission}
 
