@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = process.env.JWT_SECRET;
-const getProperties = require("../handlers/handlePropierties")
-const propertiesKey = getProperties()
+const getPropierties = require("../handlers/handlePropierties")
+const propiertiesKey = getPropierties()
 
 /**
  * debes pasar el usuario

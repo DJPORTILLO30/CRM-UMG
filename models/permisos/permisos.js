@@ -1,4 +1,4 @@
-const {sequelize} = require ("../../config/mysql");
+const { sequelize } = require("../../config/mysql")
 const {DataTypes} = require("sequelize");
 
 const Permission = sequelize.define(
@@ -11,7 +11,17 @@ const Permission = sequelize.define(
         description: {
             type: DataTypes.STRING
         }
+    },
+    {
+        timestamps: true
     }
 );
 
-module.exports= Permission;
+Permission.find = Permission.findAll;
+Permission.findById = Permission.findByPk;
+Permission.findOneAndUpdate = Permission.findOneAndUpdate;
+Permission.delete = Permission.destroy
+
+module.exports={
+    permissionsModel: Permission
+}
