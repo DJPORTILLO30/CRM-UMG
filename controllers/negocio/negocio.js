@@ -46,10 +46,10 @@ const createBusi = async(req, res) =>{
 /**
  * Controla las actualizaciones de negocios*
  */
-const updateBusi = async(req, res) =>{
-    try {
-       const {id, ...body} = matchedData(req);
-       const data = await busisModel.update({
+ const updateBusi = async(req, res) => {
+    try{
+        const {id, ...body} = matchedData(req);
+        const data= await busisModel.update({
         name: req.body.name,
         contactName: req.body.contactName,
         amount: req.body.amount,
@@ -61,9 +61,8 @@ const updateBusi = async(req, res) =>{
     }, {where:{id}});
 
     res.send({data});
-   
-   }catch (e)
-       {
+       
+    } catch (e) {
             handleHttpError(res,'ERROR_UPDATE_BUSIS')
        }
    };
@@ -72,22 +71,12 @@ const updateBusi = async(req, res) =>{
  */
 const deleteBusi = async(req, res) => {
     try{
-        req = matchedData(req)
-        const{id} = req;
-        const deleteResponse = await busisModel.destroy({
-            where: {
-                id
-        }
-    });
-        //const busi = {deleted: deleteResponse.matchedCount};
-        res.send({status: "OK"});
-    
-    }catch(e)
-        {
-            console.log(e)
-            handleHttpError(res,'ERROR_DELETE_BUSIS')  
-        }
+        const {id} = req.params;
+        const data = await busisModel.destroy({where:{id}});
+        res.send({ data });
+    } catch (e) {
+        console.log(e);
     }
-
+}
 module.exports = {getBusis, getBusi, createBusi, updateBusi, deleteBusi}
 
