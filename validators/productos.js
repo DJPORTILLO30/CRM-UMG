@@ -27,7 +27,7 @@ const validatorCreateItem = [
 //* validador para mostrar un item
 
 const validatorGetItem = [
-    check("Id")
+    check("id")
     .exists()
     .notEmpty(),
     (req,res,next) => {

@@ -3,14 +3,14 @@ const router = express.Router();
 const { getProducts, getProduct, insertProducts, updateProducts,deleteProducts } = require("../../controllers/Productos/productos.js");
 
 /**
- * ruta para mostrar el detalle de un producto
- */
-router.get("/:id", getProduct);
-
-/**
  * ruta para mostrar el detalle de los productos
  */
-router.get("/", getProducts);
+ router.get("/", getProducts);
+
+/**
+ * ruta para mostrar el detalle de un producto
+ */
+ router.get("/:id", getProduct);
 
 /**
  * ruta para insertar un producto

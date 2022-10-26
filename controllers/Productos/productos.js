@@ -7,7 +7,7 @@ const {handleHttpError} = require("../../utils/handlers/handleError")
  */
 const getProducts = async (req, res) =>{
     try{
-        const products = await productsModel.findAllData({});
+        const products = await productsModel.find({});
         res.send({products});
     }catch(e){
         handleHttpError(res,"ERROR_GET_Products")
@@ -19,11 +19,12 @@ const getProducts = async (req, res) =>{
  */
  const getProduct = async (req, res) =>{
     try{
-        req = matchedData(req);
-        const {id} = req;
-        const products = await productsModel.finOneData(id)
-        res.send({products});
+        const {id} = req.params
+        const products = await productsModel.findOne({where: {id}});
+        res.send({ products });
+
     }catch(e){
+        console.log(e);
          handleHttpError(res,"ERROR_GET_Product")
     };
 };
@@ -32,8 +33,7 @@ const getProducts = async (req, res) =>{
  */
  const insertProducts = async (req, res) =>{
    try{
-    const body = matchedData(req);
-    const products = await productsModel.create(body);
+    const products = await productsModel.create(req.body);
     res.send({products});
    }catch(e){
      handleHttpError(res,'ERROR_CREATE_Products') 
@@ -44,18 +44,11 @@ const getProducts = async (req, res) =>{
  */
  const updateProducts = async (req, res) =>{
     try{
-        const {id, ...body} = matchedData(req);
-        const products = await productsModel.update({
-        name: req.body.name,
-        description: req.body.description,
-        Category:req.body.Category,
-        Price: req.body.Price,
-        Feature: req.body.Feature,
-        }, {where:{id}});
-
-        res.send({products});
-
+        const id = req.params.id
+        const products = await productsModel.update(req.body, {where:{id}});
+        res.send({ products })
     }catch(e){
+        console.log(e)
         handleHttpError(res,'ERROR_UPDATE_Products')
     };
 };
@@ -65,19 +58,10 @@ const getProducts = async (req, res) =>{
  */
  const deleteProducts = async (req, res) =>{
     try{
-        req = matchedData(req)
-        const{id} = req;
-        const deleteResponse = await productsModel.destroy({
-            where: {
-                id
-            }
-        });
-        const products = {
-            filepath,
-            deleted:deleteResponse.matchedCount,
-        };
 
-        res.send({products});
+        const {id} = req.params;
+        const products = await productsModel.destroy({where:{id}});
+        res.send({ products });
     
     }catch(e)
     {
