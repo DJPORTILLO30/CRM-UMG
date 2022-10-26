@@ -28,14 +28,12 @@ const getCall = async(req, res) =>{
  try{
  //    req = matchedData(req);
     const {id} = req.params;
-    console.log(id);
     const data = await callsModel.findById(id)
     res.send({data});
 
 } catch(e) 
     {
-    console.log(e);
-    handleHttpError(res,"ERROR_GET_CALLS")
+     handleHttpError(res,"ERROR_GET_CALLS")
     };
 };
 
@@ -51,7 +49,6 @@ const createCall = async(req, res) =>{
 
 }catch(e)
     {
-        console.log(e)
         handleHttpError(res,'ERROR_CREATE_CALLS')  
     };   
 };
@@ -84,7 +81,6 @@ const updateCall = async(req, res) =>{
  */
 const deleteCall= async (req, res) => {
 try{
-    req = matchedData(req)
     const{id} = req;
     const deleteResponse = await callsModel.destroy({
         where: {

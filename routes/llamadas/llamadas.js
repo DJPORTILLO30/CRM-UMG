@@ -28,7 +28,7 @@ router.get("/:id", getCall);
  * Inserta una llamada
  */
 
-router.post("/:id", createCall);
+router.post("/", createCall);
 
 
 /**
