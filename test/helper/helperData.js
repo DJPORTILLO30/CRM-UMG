@@ -1,15 +1,12 @@
-
-  const testDataCampaign = {
-    propietarioCampania: "user1",
-    nombreCampania: "campaign1",
-    idTipoCampania: 1,
-    fechaInicio: "05/12/2022",
-    fechaFin: "05/13/2022",
-    estado: "ACTIVO",
-    descripcion: "texto"
-};
-  
+const testDataContact = {
+  ownerContact: "prueba1",
+      email: "test@test.com",
+      phone: 1236548,
+      department:"finanzasPrueba",
+      address:"02prueba",
+      description:"test"
+  };
 
   module.exports = {
-    testDataCampaign
+    testDataContact
   }
