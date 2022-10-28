@@ -1,10 +1,10 @@
 const {matchedData} = require('express-validator'); 
-const {campaignsModel} = require("../../models/campañas/campañas")
+const campaignsModel = require("../../models/campañas/campañas")
 
 //Obtener lista de campañas
 const getCampaigns = async(req, res) => {
     try{
-        const data = await campaignsModel.find({});
+        const data = await campaignsModel.findAll({});
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -14,8 +14,8 @@ const getCampaigns = async(req, res) => {
 //Obtener una campaña
 const getCampaign = async (req, res) => {
     try{
-        const {id} = matchedData(req);
-        const data = await campaignsModel.findById(id);
+        const {id} = req.params
+        const data = await campaignsModel.findOne({where: {id}});
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -25,8 +25,7 @@ const getCampaign = async (req, res) => {
 //Crear una campaña
 const createCampaign = async(req, res) => {
     try{
-        const body = matchedData(req);
-        const data = await campaignsModel.create(body);
+        const data = await campaignsModel.create(req.body);
         // res.status(201);
         res.send({ data });
     } catch (e) {
@@ -37,8 +36,8 @@ const createCampaign = async(req, res) => {
 //Actualizar una campaña
 const updateCampaign = async(req, res) => {
     try{
-        const {id, ...body} = matchedData(req);
-        const data = await campaignsModel.findOneAndUpdate(id, body);
+        const id = req.params.id
+        const data = await campaignsModel.update(req.body, {where:{id}});
         res.send({ data });
     } catch (e) {
         console.log(e);
@@ -48,12 +47,8 @@ const updateCampaign = async(req, res) => {
 //Eliminar una campaña
 const deleteCampaign = async(req, res) => {
     try{
-        req = matchedData(req);
-        const {id} = req;
-        const deleteResponse = await campaignsModel.findByIdAndDelete(id);
-        const data = {
-            deleted: deleteResponse.matchCount
-        }
+        const {id} = req.params;
+        const data = await campaignsModel.destroy({where:{id}});
         res.send({ data });
     } catch (e) {
         console.log(e);
