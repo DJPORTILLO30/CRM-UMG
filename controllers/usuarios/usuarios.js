@@ -141,7 +141,7 @@ const loginUser = async (req, res) => {
         res.send({data})
 
     }catch(e){
-        handleHttpError(res, "ERROR_LOGIN_USER")
+        handleHttpError(res, "ERROR_LOGIN_USER" , e)
     }
 };
 
