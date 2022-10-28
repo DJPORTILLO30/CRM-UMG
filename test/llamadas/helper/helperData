@@ -1,0 +1,10 @@
+const testCallsRegister = {
+    contactName: " Maria ",
+    description: "puede realizar un negocio",
+    comunicationDate: "2022/10/15"
+};
+
+
+module.exports = {testCallsRegister}
+
+    
