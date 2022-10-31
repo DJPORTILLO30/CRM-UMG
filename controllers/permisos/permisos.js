@@ -8,7 +8,6 @@ const {matchedData} = require('express-validator')
 const getPermissions = async (req, res) =>{
     try{
         const data = await permissionsModel.find({});
-        // console.log(data)
         res.send({data});
     }catch(e){
         handleHttpError(res,"ERROR_GET_PERMISSIONS")
