@@ -64,7 +64,7 @@ const updateCall = async(req, res) =>{
         description: req.body.description,
         comunicationDate: req.body.comunicationDate
     
-    }, {where:{id}});
+    }, {where:{id: req.body.id}});
 
 
     res.send({data});
@@ -81,7 +81,7 @@ const updateCall = async(req, res) =>{
  */
 const deleteCall= async (req, res) => {
 try{
-    const{id} = req;
+    const{id} = req.params;
     const deleteResponse = await callsModel.destroy({
         where: {
             id
