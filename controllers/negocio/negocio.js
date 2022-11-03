@@ -58,7 +58,7 @@ const createBusi = async(req, res) =>{
         campaingSource: req.body.campaingSource,
         description: req.body.description,
 
-    }, {where:{id}});
+    }, {where:{id:req.body.id}});
 
     res.send({data});
        
