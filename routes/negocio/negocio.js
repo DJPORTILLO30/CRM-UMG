@@ -14,7 +14,7 @@ const {
 /**
  * Mostrar lista de negocios
  */
-router.get("/", checkRol(['admin']) , getBusis);
+router.get("/", getBusis);
 
 /**
  * Mostrar detalles
