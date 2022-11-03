@@ -14,7 +14,7 @@ const {
 /**
  * Mostrar lista de negocios
  */
-router.get("/", authMiddleware ,  checkRol(['admin']) , getBusis);
+router.get("/", checkRol(['admin']) , getBusis);
 
 /**
  * Mostrar detalles
