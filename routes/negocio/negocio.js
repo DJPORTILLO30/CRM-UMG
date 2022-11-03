@@ -1,4 +1,6 @@
 const express = require("express");
+const { authMiddleware} = require("../../middleware/sesion");
+const { checkRol} = require("../../middleware/rol");
 const router= express.Router();
 const {
      getBusi,
@@ -12,7 +14,7 @@ const {
 /**
  * Mostrar lista de negocios
  */
-router.get("/", getBusis);
+router.get("/", authMiddleware ,  checkRol(['admin']) , getBusis);
 
 /**
  * Mostrar detalles
