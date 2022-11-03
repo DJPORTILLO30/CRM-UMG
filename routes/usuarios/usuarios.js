@@ -29,7 +29,7 @@ router.put("/:id",validatorUpdateUser, updateUser);
 /**
  * eliminar un usuario
  */
-router.delete("/:id", validatorGetUser, authMiddleware, checkRol(["admin"]), deleteUser);
+router.delete("/:id", validatorGetUser, deleteUser);
 /**
  * ruta para iniciar sesión
  */
